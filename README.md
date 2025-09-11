@@ -25,15 +25,22 @@
 
 
 #### 파일
-- AjaxTest > "script.sql"
-- "com.test.java.model" > "AjaxDAO.java", "SurveyDTO.java"
-
-- "com.test.java" > "Ex01.java"
-
-- "views" > "ex01.jsp"
+- AjaxTest
+  - "script.sql"
+- com.test.java.model
+  - AjaxDAO.java
+  - SurveyDTO.java
+- com.test.java
+  - Ex01.java
+  - Ex02.java
+  - Ex02Data.java
+- views
+  - ex01.jsp
+  - ex02.jsp (메인문서)
+  - ex02data.jsp (iFrame문서)
 
 ---
+
 ## 웹의 특성
 - 클라이언트 요구가 있을 때에만 서버가 응답한다
 - 서버가 일방적으로 클라이언트 의사와 관계없이 데이터를 전송할 수 없다. (push 불가능)
-- 

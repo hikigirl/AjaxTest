@@ -58,12 +58,13 @@
 		<div class="item" id="item3">${dto.item3}<span>${dto.cnt3}</span></div>
 		<div class="item" id="item4">${dto.item4}<span>${dto.cnt4}</span></div>
 	</div>
+	<!-- <hr />
 	<h2>다른 콘텐츠</h2>
 	<div>
 		<div><input type="text" /></div>
 		<div><input type="text" /></div>
 		<div><input type="text" /></div>
-	</div>
+	</div> -->
 	
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script src="https://bit.ly/4cMuheh"></script>
@@ -75,9 +76,9 @@
 		$('#item4').css('width', '${dto.cnt4 * 30+30}px');
 		
 		//1. 가장 원시적 방법..
-		/* setTimeout(() => {
+		setTimeout(() => {
 			location.reload(); //f5
-		}, 5000); */
+		}, 5000);
 	
 	</script>
 </body>

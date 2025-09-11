@@ -21,7 +21,7 @@ INSERT INTO tblSurvey VALUES (1, '가장 자신있는 프로그래밍 언어는?
 SELECT * FROM tblSurvey;
 
 UPDATE TBLSURVEY SET 
-	cnt1 = 3, 
+	cnt1 = 13, 
 	cnt2 = 5, 
 	cnt3 = 10, 
 	cnt4 = 2 
