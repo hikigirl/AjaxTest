@@ -82,4 +82,25 @@ public class AjaxDAO {
 		return null;
 	}
 
+	public int checkId(String id) {
+		try {
+			String sql = "SELECT count(*) AS cnt FROM TBLUSER WHERE id=?";
+			pstat=conn.prepareStatement(sql);
+			pstat.setString(1, id);
+			
+			rs = pstat.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+			
+			
+		} catch (Exception e) {
+			// handle exception
+			System.out.println("AjaxDAO.checkId()");
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
 }
