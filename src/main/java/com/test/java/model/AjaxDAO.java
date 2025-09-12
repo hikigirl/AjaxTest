@@ -58,5 +58,28 @@ public class AjaxDAO {
 		}
 		return null;
 	}
+	
+	public String getInsa(String num3) {
+		
+		try {
+			
+			String sql = "select name from tblInsa where num = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, num3);
+			
+			rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getString("name");
+			}
+			
+		} catch (Exception e) {
+			System.out.println("AjaxDAO.getInsa()");
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
 }
