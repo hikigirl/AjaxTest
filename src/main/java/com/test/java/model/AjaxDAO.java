@@ -103,4 +103,20 @@ public class AjaxDAO {
 		return 0;
 	}
 
+	public int searchZipcode(String dong) {
+		try {
+			String sql = "SELECT * FROM ZIPCODE WHERE dong LIKE '%?%'";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dong);
+			rs = pstat.executeQuery();
+			
+			
+		} catch (Exception e) {
+			// handle exception
+			System.out.println("AjaxDAO.searchZipcode()");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }
