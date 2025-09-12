@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.test.util.DBUtil;
 
@@ -117,6 +119,34 @@ public class AjaxDAO {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public List<UserDTO> getUsers() {
+		try {
+			String sql = "select * from tblUser";
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			List<UserDTO> list = new ArrayList<UserDTO>();
+			
+			while(rs.next()) {
+				//레코드1줄 -> dto1개
+				UserDTO dto = new UserDTO();
+				
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+				dto.setName(rs.getString("name"));
+				dto.setGrade(rs.getString("grade"));
+				
+				list.add(dto);
+			}
+			return list;
+			
+		} catch (Exception e) {
+			// handle exception
+			System.out.println("AjaxDAO.getUsers()");
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
