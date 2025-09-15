@@ -42,4 +42,15 @@ INSERT INTO TBLADDRESS (seq, name, age, gender, tel, address, regdate)
 
 DELETE FROM TBLADDRESS WHERE seq IN (122);
 
+--ex10 고양이 좌표 관리하기
+CREATE TABLE tblCat (
+	catid varchar2(50) PRIMARY KEY,
+	x NUMBER NOT NULL, --left
+	y NUMBER NOT NULL  --top
+);
+INSERT INTO tblcat(catid, x, y) VALUES ('cat1', 0, 0);
+SELECT * FROM tblcat;
+
+
+
 COMMIT;

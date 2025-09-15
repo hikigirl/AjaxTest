@@ -218,4 +218,51 @@ public class AjaxDAO {
 		return null;
 	}
 
+	public void editCat(CatDTO dto) {
+		// update문 실행
+		try {
+			String sql = "UPDATE tblcat SET x=?, y=? WHERE catid=?";
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getX());
+			pstat.setString(2, dto.getY());
+			pstat.setString(3, dto.getId());
+			
+			pstat.executeQuery();
+			
+			
+		} catch (Exception e) {
+			// handle exception
+			System.out.println("AjaxDAO.editCat()");
+			e.printStackTrace();
+		}
+		
+	}
+
+	public CatDTO getCat(String id) {
+		//
+		try {
+			String sql = "select * from tblCat where catid=?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, id);
+			
+			rs = pstat.executeQuery();
+			
+			if(rs.next()) {
+				CatDTO dto = new CatDTO();
+				dto.setId(rs.getString("catid"));
+				dto.setX(rs.getString("x"));
+				dto.setY(rs.getString("y"));
+				
+				return dto;
+			}
+			
+		} catch (Exception e) {
+			// handle exception
+			System.out.println("AjaxDAO.getCat()");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
