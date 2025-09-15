@@ -29,14 +29,145 @@ public class Ex08Data extends HttpServlet {
 			m3(req, resp);
 		} else if(m.equals("4")) {
 			m4(req, resp);
+		} else if(m.equals("5")) {
+			m5(req, resp);
+		} else if(m.equals("6")) {
+			m6(req, resp);
 		}
 	
 	} //doGet
 	
 
-	private void m4(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		// TODO Auto-generated method stub
+	private void m6(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		//서버가 json 반환 + 다중값 -> m2()와 동일
+		AjaxDAO dao = new AjaxDAO();
 		
+		List<UserDTO> list = dao.getUsers();
+		
+		resp.setContentType("application/json");
+		resp.setCharacterEncoding("UTF-8");
+		/*
+			[
+				{
+					"id": "hong",
+					"pw": "1111",
+					"name": "홍길동",
+					"grade": 1
+				},
+				{
+					"id": "hong",
+					"pw": "1111",
+					"name": "홍길동",
+					"grade": 1
+				}
+			]
+		*/
+		
+		String temp = "";
+		
+		temp += "[";
+		
+		for (UserDTO dto:list) {
+			temp += """
+				{
+					"id": "%s",
+					"pw": "%s",
+					"name": "%s",
+					"grade": %s
+				},""".formatted(dto.getId(), dto.getPw(), dto.getName(), dto.getGrade());
+		}
+		
+		temp = temp.substring(0, temp.length()-1);
+		
+		temp += "]";
+		
+		PrintWriter writer = resp.getWriter();
+		writer.print(temp); //토큰
+		//writer.print("<h1>데이터</h1>");
+		writer.close();
+	}
+
+
+	private void m5(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		//서버가 json 반환 + 단일값 -> m1()
+		AjaxDAO dao = new AjaxDAO();
+		String question = dao.getSurvey(1).getQuestion();
+		
+		//서버가 클라이언트에게 돌려주는 데이터의 형식 지정
+		// 응답 헤더(response header) 설정
+		resp.setContentType("application/json"); //mime -> 문자열
+		resp.setCharacterEncoding("UTF-8");
+		
+		/* 모든 따옴표는 쌍따옴표로
+			{
+				"question": "질문"
+			}
+		*/
+		
+		PrintWriter writer = resp.getWriter();
+		writer.printf("""
+			{
+				"question": "%s"
+			}		
+		""", question); //토큰
+		writer.close();
+	}
+
+
+	private void m4(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		//서버가 xml 반환+ 다중값 -> m2()와 동일
+		AjaxDAO dao = new AjaxDAO();
+		
+		List<UserDTO> list = dao.getUsers();
+		
+		resp.setContentType("text/xml");
+		resp.setCharacterEncoding("UTF-8");
+		String temp = "";
+		/*
+			<list>
+				<user>
+					<id>hong</id>
+					<pw>1111</pw>
+					<name>홍길동</name>
+					<grade>1</grade>
+				</user>
+				<user>
+					<id>dog</id>
+					<pw>1111</pw>
+					<name>강아지</name>
+					<grade>1</grade>
+				</user>
+				<user>
+					<id>cat</id>
+					<pw>1111</pw>
+					<name>고양이</name>
+					<grade>2</grade>
+				</user>
+			</list>
+		*/
+		
+		temp += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+		
+		temp += "<list>";
+		for (UserDTO dto:list) { //for문 돌면서 xml을 작성
+			
+//			temp += String.format("%s, %s, %s, %s\r\n", dto.getId(), dto.getPw(), dto.getName(), dto.getGrade());
+			
+			temp += "<user>";
+				temp += "<id>" + dto.getId() + "</id>";
+				temp += "<pw>" + dto.getPw() + "</pw>";
+				temp += "<name>" + dto.getName() + "</name>";
+				temp += "<grade>" + dto.getGrade() + "</grade>";	
+			temp += "</user>";
+			
+		}
+		temp += "</list>";
+		
+		PrintWriter writer = resp.getWriter();
+		writer.print(temp); //토큰
+		//writer.print("<h1>데이터</h1>");
+		writer.close();
+
 	}
 
 
