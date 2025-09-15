@@ -35,4 +35,11 @@ SELECT count(*) AS cnt FROM TBLUSER WHERE id=?;
 
 SELECT * FROM ZIPCODE WHERE dong LIKE '%역삼%';
 
+SELECT * FROM TBLADDRESS t ORDER BY seq ASC;
+
+INSERT INTO TBLADDRESS (seq, name, age, gender, tel, address, regdate) 
+	VALUES (seqAddress.nextVal, ?,?,?,?,?, DEFAULT);
+
+DELETE FROM TBLADDRESS WHERE seq IN (122);
+
 COMMIT;

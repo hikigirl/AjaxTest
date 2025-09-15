@@ -82,3 +82,31 @@
       - 4: 모든 데이터 수신 완료
 3. 연결설정(get/post, 경로)
 4. 연결 요청
+
+---
+
+### Ex09.java
+
+#### 이전 구현 -> SSR(server-side) -> PC 화면
+1. 서블릿 호출(ex09.do)
+2. db작업 -> 목록
+3. 목록 -> jsp 전달 -> 출력
+
+#### 이번 구현 -> CSR(client-side) + ajax -> 모바일 화면
+1. 서블릿(ex09.do) -> 아무것도 안함
+2. JSP 페이지 -> ajax 사용 -> 서버에게 목록 요청
+3. 서블릿(ex09data.do) 응답 -> db작업 -> 목록 -> ajax에게 반환
+4. 반환받은 목록을 jsp가 화면에 출력(JavaScript 사용)
+
+#### CSR
+-  Vue, React, Angular + 서버쪽 데이터(ajax)
+
+---
+
+#### Ajax 데이터 전송 형식
+1. Query String
+   1. data: 'name=홍길동&age=20&gender=m';
+2. 직렬화(Serialize)
+   1. 객체를 한줄의 문자열로 만드는 작업
+3. 객체 직접 대입
+   1. 

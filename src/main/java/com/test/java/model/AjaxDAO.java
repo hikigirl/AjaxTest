@@ -149,4 +149,73 @@ public class AjaxDAO {
 		return null;
 	}
 
+	public List<AddressDTO> addressList() {
+		try {
+			String sql = "SELECT * FROM TBLADDRESS ORDER BY seq DESC";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			List<AddressDTO> list = new ArrayList<AddressDTO>();
+			
+			while(rs.next()) {
+				//레코드 한줄 -> dto 1개
+				AddressDTO dto = new AddressDTO();
+				dto.setSeq(rs.getString("seq"));
+				dto.setName(rs.getString("name"));
+				dto.setAge(rs.getString("age"));
+				dto.setGender(rs.getString("gender"));
+				dto.setTel(rs.getString("tel"));
+				dto.setAddress(rs.getString("address"));
+				dto.setRegdate(rs.getString("regdate"));
+				list.add(dto);
+			}
+			
+			return list;
+		} catch (Exception e) {
+			// handle exception
+			System.out.println("AjaxDAO.addressList()");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public int addAddress(AddressDTO dto) {
+		try {
+			String sql = "INSERT INTO TBLADDRESS (seq, name, age, gender, tel, address, regdate) VALUES (seqAddress.nextVal, ?, ?, ?, ?, ?, DEFAULT)";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getName());
+			pstat.setString(2, dto.getAge());
+			pstat.setString(3, dto.getGender());
+			pstat.setString(4, dto.getTel());
+			pstat.setString(5, dto.getAddress());
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			// handle exception
+			System.out.println("AjaxDAO.addAddress()");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public String getAddressSeq() {
+		try {
+			String sql = "select max(seq) as seq from tblAddress";
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			if(rs.next()) {
+				return	rs.getString("seq");
+			}
+			
+		} catch (Exception e) {
+			// handle exception
+			System.out.println("AjaxDAO.getAddressSeq()");
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
